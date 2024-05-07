@@ -19,8 +19,10 @@ namespace RainyDay.Data
             modelBuilder.Entity<Tenant>().HasKey(a => a.Id);
             modelBuilder.Entity<User>().HasKey(a => a.Id);
             modelBuilder.Entity<Role>().HasKey(a => a.Id);
-            modelBuilder.Entity<Author>().HasKey(a => a.Id);
-            modelBuilder.Entity<Books>().HasKey(a => a.Id);
+            modelBuilder.Entity<Patient>().HasKey(a => a.Id);
+            modelBuilder.Entity<Doctor>().HasKey(a => a.Id);
+            modelBuilder.Entity<Appointment>().HasKey(a => a.Id);
+            modelBuilder.Entity<BloodGroup>().HasKey(a => a.Id);
             modelBuilder.Entity<UserInRole>().HasOne(a => a.TenantId_Tenant).WithMany().HasForeignKey(c => c.TenantId);
             modelBuilder.Entity<UserInRole>().HasOne(a => a.RoleId_Role).WithMany().HasForeignKey(c => c.RoleId);
             modelBuilder.Entity<UserInRole>().HasOne(a => a.UserId_User).WithMany().HasForeignKey(c => c.UserId);
@@ -40,7 +42,9 @@ namespace RainyDay.Data
             modelBuilder.Entity<Role>().HasOne(a => a.TenantId_Tenant).WithMany().HasForeignKey(c => c.TenantId);
             modelBuilder.Entity<Role>().HasOne(a => a.CreatedBy_User).WithMany().HasForeignKey(c => c.CreatedBy);
             modelBuilder.Entity<Role>().HasOne(a => a.UpdatedBy_User).WithMany().HasForeignKey(c => c.UpdatedBy);
-            modelBuilder.Entity<Books>().HasOne(a => a.AuthorId_Author).WithMany().HasForeignKey(c => c.AuthorId);
+            modelBuilder.Entity<Patient>().HasOne(a => a.BloodGroup_BloodGroup).WithMany().HasForeignKey(c => c.BloodGroup);
+            modelBuilder.Entity<Doctor>().HasOne(a => a.BloodGroup_BloodGroup).WithMany().HasForeignKey(c => c.BloodGroup);
+            modelBuilder.Entity<Appointment>().HasOne(a => a.PatientId_Patient).WithMany().HasForeignKey(c => c.PatientId);
         }
 
         public DbSet<UserInRole> UserInRole { get; set; }
@@ -50,7 +54,9 @@ namespace RainyDay.Data
         public DbSet<Tenant> Tenant { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Role> Role { get; set; }
-        public DbSet<Author> Author { get; set; }
-        public DbSet<Books> Books { get; set; }
+        public DbSet<Patient> Patient { get; set; }
+        public DbSet<Doctor> Doctor { get; set; }
+        public DbSet<Appointment> Appointment { get; set; }
+        public DbSet<BloodGroup> BloodGroup { get; set; }
     }
 }
